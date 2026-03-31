@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>奶茶打卡勋章墙</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="app-title">
+        <div class="spark"></div>
+        <div class="title">奶茶打卡</div>
+        <div class="subtitle">勋章系统 · 连击不掉线</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-label">今天</div>
+          <div class="stat-value" id="todayValue">-</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">连击</div>
+          <div class="stat-value" id="streakValue">- 天</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">总次数</div>
+          <div class="stat-value" id="totalCountValue">-</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">勋章墙</div>
+            <div class="panel-subtitle">达成条件自动解锁</div>
+          </div>
+        </div>
+        <div class="badges" id="badges"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">打卡记录</div>
+            <div class="panel-subtitle">今天可继续打卡</div>
+          </div>
+          <div class="actions">
+            <button class="btn primary" id="btnCheckin" type="button">+ 今天打卡</button>
+            <button class="btn" id="btnAddBrand" type="button">+ 添加品牌</button>
+          </div>
+        </div>
+
+        <div class="records" id="records"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 打卡弹窗 -->
+  <div class="modal" id="modalCheckin" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title">今天打卡</div>
+        <button class="icon-btn" data-close type="button">✕</button>
+      </div>
+
+      <form id="checkinForm" class="form">
+        <label class="field">
+          <span>品牌</span>
+          <select id="brandSelect" required></select>
+        </label>
+
+        <label class="field">
+          <span>价格（数字）</span>
+          <div class="inline">
+            <input id="priceInput" type="number" inputmode="decimal" step="0.01" min="0" placeholder="例如 18.5" required />
+            <div class="unit">元</div>
+          </div>
+        </label>
+
+        <label class="field">
+          <span>备注（视觉宽度 <= 20）</span>
+          <textarea id="noteInput" rows="3" placeholder="例如 半糖少冰"></textarea>
+          <div class="counter"><span id="noteCounter">0</span>/20</div>
+        </label>
+
+        <div class="modal-actions">
+          <button class="btn primary" type="submit">确认打卡</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 添加品牌弹窗 -->
+  <div class="modal" id="modalBrand" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="modal-title">添加品牌（上传logo）</div>
+        <button class="icon-btn" data-close type="button">✕</button>
+      </div>
+
+      <form id="brandForm" class="form">
+        <label class="field">
+          <span>品牌名</span>
+          <input id="brandNameInput" type="text" maxlength="30" placeholder="例如 我最爱的奶茶" required />
+        </label>
+
+        <label class="field">
+          <span>logo图片</span>
+          <input id="brandLogoInput" type="file" accept="image/*" required />
+        </label>
+
+        <div class="modal-actions">
+          <button class="btn primary" type="submit">保存品牌</button>
+        </div>
+      </form>
+
+      <div class="divider"></div>
+      <div class="brand-preview-head">已保存品牌</div>
+      <div class="brand-list" id="brandList"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
